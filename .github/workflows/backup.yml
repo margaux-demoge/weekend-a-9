@@ -1,4 +1,8 @@
-name: Backup votes
+name: Rotate & backup votes
+
+# jsonblob expire les blobs 24 h après création : on copie les données dans un
+# blob neuf toutes les 6 h, on met à jour le pointeur bin.json et on garde un
+# snapshot versionné dans backups/.
 
 on:
   schedule:
@@ -9,20 +13,29 @@ permissions:
   contents: write
 
 jobs:
-  backup:
+  rotate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Fetch bin and commit if changed
+      - name: Rotate blob and commit pointer + backup
         run: |
           set -e
-          mkdir -p backups
-          curl -sf -m 30 "https://extendsclass.com/api/json-storage/bin/fafadff" -o backups/latest.json
-          python3 -m json.tool backups/latest.json > /dev/null
-          if ! git diff --quiet -- backups/latest.json 2>/dev/null || [ -n "$(git status --porcelain backups/)" ]; then
-            git config user.name "vote-backup[bot]"
-            git config user.email "actions@github.com"
-            git add backups/latest.json
-            git commit -m "backup: snapshot des votes"
-            git push
+          URL=$(python3 -c "import json;print(json.load(open('bin.json'))['url'])")
+          if curl -sf -m 30 "$URL" -o /tmp/data.json && python3 -m json.tool /tmp/data.json > /dev/null; then
+            echo "fetched live data from $URL"
+          elif [ -f backups/latest.json ]; then
+            echo "::warning::blob unreachable, restoring from last backup"
+            cp backups/latest.json /tmp/data.json
+          else
+            echo "::error::no data source available"; exit 1
           fi
+          LOC=$(curl -sf -m 30 -X POST -H "Content-Type: application/json" --data-binary @/tmp/data.json -D - -o /dev/null https://jsonblob.com/api/jsonBlob | grep -i '^location' | tr -d '\r' | awk '{print $2}')
+          [ -n "$LOC" ] || { echo "::error::blob creation failed"; exit 1; }
+          printf '{"url": "https://jsonblob.com%s"}\n' "$LOC" > bin.json
+          mkdir -p backups
+          cp /tmp/data.json backups/latest.json
+          git config user.name "vote-rotation[bot]"
+          git config user.email "actions@github.com"
+          git add bin.json backups/latest.json
+          git commit -m "rotate: nouveau blob + snapshot des votes"
+          git push
