@@ -1,0 +1,28 @@
+name: Backup votes
+
+on:
+  schedule:
+    - cron: "23 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch bin and commit if changed
+        run: |
+          set -e
+          mkdir -p backups
+          curl -sf -m 30 "https://extendsclass.com/api/json-storage/bin/fafadff" -o backups/latest.json
+          python3 -m json.tool backups/latest.json > /dev/null
+          if ! git diff --quiet -- backups/latest.json 2>/dev/null || [ -n "$(git status --porcelain backups/)" ]; then
+            git config user.name "vote-backup[bot]"
+            git config user.email "actions@github.com"
+            git add backups/latest.json
+            git commit -m "backup: snapshot des votes"
+            git push
+          fi

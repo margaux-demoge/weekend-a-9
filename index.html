@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>On part où en septembre ? — Le conseil des 9</title>
+<meta name="description" content="Trois options, neuf votes, un week-end. On tranche ici.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='34' fill='%23E9A23B'/><path d='M8 78c10-8 18-8 28 0s18 8 28 0 18-8 28 0' stroke='%232F55C0' stroke-width='7' fill='none' stroke-linecap='round'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F6F3EA; --card:#FFFFFF; --ink:#232E33; --muted:#6F7871; --line:#E2DCCB;
+  --sun:#E9A23B; --sun-ink:#5C3D10;
+  --paros:#2F55C0; --minorque:#148F6D; --basque:#C14C33;
+  --paros-soft:#E8EDFB; --minorque-soft:#E2F3EE; --basque-soft:#F9E9E4;
+  --ok:#148F6D; --shadow:0 1px 2px rgba(35,46,51,.06),0 8px 24px -12px rgba(35,46,51,.18);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --paper:#141B1F; --card:#1D262B; --ink:#EDE7D8; --muted:#939C93; --line:#323C41;
+    --sun:#EFAE4F; --sun-ink:#2A1F0C;
+    --paros:#7C9BF2; --minorque:#4CC2A0; --basque:#E8785C;
+    --paros-soft:#232E48; --minorque-soft:#1D3833; --basque-soft:#402720;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px -12px rgba(0,0,0,.5);
+  }
+}
+:root[data-theme="light"]{
+  --paper:#F6F3EA; --card:#FFFFFF; --ink:#232E33; --muted:#6F7871; --line:#E2DCCB;
+  --sun:#E9A23B; --sun-ink:#5C3D10;
+  --paros:#2F55C0; --minorque:#148F6D; --basque:#C14C33;
+  --paros-soft:#E8EDFB; --minorque-soft:#E2F3EE; --basque-soft:#F9E9E4;
+  --shadow:0 1px 2px rgba(35,46,51,.06),0 8px 24px -12px rgba(35,46,51,.18);
+}
+:root[data-theme="dark"]{
+  --paper:#141B1F; --card:#1D262B; --ink:#EDE7D8; --muted:#939C93; --line:#323C41;
+  --sun:#EFAE4F; --sun-ink:#2A1F0C;
+  --paros:#7C9BF2; --minorque:#4CC2A0; --basque:#E8785C;
+  --paros-soft:#232E48; --minorque-soft:#1D3833; --basque-soft:#402720;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px -12px rgba(0,0,0,.5);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:"Instrument Sans",system-ui,sans-serif; font-size:16px; line-height:1.5;
+  padding-bottom:env(safe-area-inset-bottom);
+}
+.wrap{max-width:640px; margin:0 auto; padding:0 16px 96px}
+h1,h2,h3{font-family:"Bricolage Grotesque","Instrument Sans",sans-serif; text-wrap:balance; margin:0}
+button{font:inherit; color:inherit; cursor:pointer; -webkit-tap-highlight-color:transparent}
+input{font:inherit; color:inherit}
+
+/* ---------- header ---------- */
+header{padding:28px 0 8px; text-align:left}
+.eyebrow{font-size:12px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--muted)}
+h1{font-size:clamp(30px,8vw,40px); font-weight:800; line-height:1.05; margin-top:6px}
+.sub{color:var(--muted); margin:10px 0 0; max-width:46ch}
+.mename{margin-top:14px; font-size:14px; color:var(--muted)}
+.mename b{color:var(--ink)}
+.mename button{border:none; background:none; text-decoration:underline; color:var(--muted); font-size:13px; padding:0 0 0 6px}
+
+/* ---------- name gate ---------- */
+#gate{min-height:100svh; display:flex; flex-direction:column; justify-content:center; max-width:640px; margin:0 auto; padding:24px}
+#gate h1{font-size:clamp(34px,9vw,46px)}
+#gate .card{margin-top:24px}
+.namerow{display:flex; gap:8px; margin-top:12px}
+.namerow input{flex:1; border:1.5px solid var(--line); background:var(--card); border-radius:12px; padding:12px 14px; font-size:17px}
+.namerow input:focus{outline:2px solid var(--sun); outline-offset:1px; border-color:transparent}
+.namerow button{background:var(--ink); color:var(--paper); border:none; border-radius:12px; padding:12px 18px; font-weight:700}
+.gate-hint{font-size:13.5px; color:var(--muted); margin-top:12px}
+
+/* ---------- results ---------- */
+.card{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:18px; box-shadow:var(--shadow)}
+#results{margin-top:18px}
+#results h2{font-size:15px; font-weight:700; letter-spacing:.1em; text-transform:uppercase}
+.tally{margin-top:14px; display:flex; flex-direction:column; gap:12px}
+.trow{display:grid; grid-template-columns:96px 1fr 44px; align-items:center; gap:10px}
+.trow .lbl{font-weight:700; font-size:14px}
+.bar{height:22px; border-radius:7px; background:var(--paper); border:1px solid var(--line); overflow:hidden; position:relative}
+.bar>i{position:absolute; inset:0 auto 0 0; border-radius:6px; transition:width .5s cubic-bezier(.2,.8,.2,1)}
+.trow .num{font-variant-numeric:tabular-nums; font-weight:700; text-align:right; font-size:15px}
+.voters{font-size:13px; color:var(--muted); margin-top:10px}
+.crown{margin-top:14px; background:var(--sun); color:var(--sun-ink); border-radius:12px; padding:12px 14px; font-weight:700; display:none}
+.crown.show{display:block}
+
+/* ---------- destination cards ---------- */
+.dest{margin-top:22px; border-radius:18px; overflow:hidden; border:1px solid var(--line); background:var(--card); box-shadow:var(--shadow)}
+.dest .band{height:10px}
+.dest .inner{padding:18px}
+.dest .k{font-size:12px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--muted)}
+.dest h2{font-size:clamp(26px,6.5vw,32px); font-weight:800; line-height:1.05; margin-top:4px}
+.dest .pitch{margin:10px 0 0; color:var(--ink)}
+.facts{display:flex; flex-direction:column; gap:6px; margin-top:14px; padding:12px 14px; background:var(--paper); border:1px solid var(--line); border-radius:12px}
+.fact{display:grid; grid-template-columns:78px 1fr; gap:8px; font-size:13.5px}
+.fact b{font-weight:700; color:var(--muted); text-transform:uppercase; font-size:11px; letter-spacing:.08em; padding-top:2px}
+.heatq{margin-top:16px; font-weight:700; font-size:15px}
+.heat{display:grid; grid-template-columns:repeat(4,1fr); gap:6px; margin-top:8px}
+.heat button{border:1.5px solid var(--line); background:var(--paper); border-radius:10px; padding:9px 2px; font-size:12.5px; font-weight:600; line-height:1.2}
+.heat button.on{border-color:var(--hue); background:var(--soft); color:var(--ink); font-weight:700}
+.acts{margin-top:16px}
+.acts h3{font-size:13px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--muted)}
+.act{display:flex; align-items:flex-start; gap:10px; padding:9px 0; border-bottom:1px solid var(--line)}
+.act:last-of-type{border-bottom:none}
+.act button.tick{flex:none; width:24px; height:24px; margin-top:1px; border-radius:8px; border:1.5px solid var(--line); background:var(--paper); position:relative}
+.act button.tick.on{background:var(--hue); border-color:var(--hue)}
+.act button.tick.on::after{content:""; position:absolute; inset:5px 4px 7px; border:solid #fff; border-width:0 0 2.5px 2.5px; transform:rotate(-48deg)}
+.act .lab{flex:1; font-size:15px}
+.act .who{display:flex; gap:3px; flex-wrap:wrap; justify-content:flex-end; max-width:40%}
+.chip{font-size:10.5px; font-weight:700; background:var(--soft); color:var(--ink); border-radius:99px; padding:2px 7px; white-space:nowrap}
+.addrow{display:flex; gap:8px; margin-top:12px}
+.addrow input{flex:1; border:1.5px dashed var(--line); background:transparent; border-radius:10px; padding:9px 12px; font-size:14px}
+.addrow input:focus{outline:2px solid var(--hue); outline-offset:1px}
+.addrow button{border:none; background:var(--soft); color:var(--ink); font-weight:700; border-radius:10px; padding:9px 14px; font-size:14px}
+.byline{font-size:11.5px; color:var(--muted)}
+
+/* ---------- dates ---------- */
+#dates{margin-top:26px}
+#dates .card>p{margin:6px 0 0; color:var(--muted); font-size:14px}
+.dgrid{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:14px}
+.dgrid button{border:1.5px solid var(--line); background:var(--paper); border-radius:12px; padding:12px 10px; text-align:left; line-height:1.3}
+.dgrid button .dl{font-weight:700; font-size:14.5px; display:block}
+.dgrid button .dc{font-size:12.5px; color:var(--muted); font-variant-numeric:tabular-nums}
+.dgrid button.on{border-color:var(--sun); background:color-mix(in srgb, var(--sun) 16%, var(--card))}
+
+/* ---------- footer / status ---------- */
+.savebar{position:fixed; left:50%; transform:translateX(-50%); bottom:calc(14px + env(safe-area-inset-bottom)); background:var(--ink); color:var(--paper); font-size:13.5px; font-weight:600; border-radius:99px; padding:8px 16px; box-shadow:var(--shadow); opacity:0; pointer-events:none; transition:opacity .25s}
+.savebar.show{opacity:1}
+.err{background:var(--basque); color:#fff}
+footer{margin-top:40px; font-size:12.5px; color:var(--muted); text-align:center}
+@media (prefers-reduced-motion: reduce){ *{transition:none!important} }
+.hidden{display:none!important}
+:focus-visible{outline:2px solid var(--sun); outline-offset:2px}
+</style>
+</head>
+<body>
+
+<!-- name gate -->
+<div id="gate" class="hidden">
+  <p class="eyebrow">Le conseil des 9 · Septembre 2026</p>
+  <h1>On part où&nbsp;?</h1>
+  <p class="sub">Trois options pour le grand week-end. Tu notes chaque destination, tu coches ce qui te tente, tu donnes tes dates. Quand les 9 ont voté, on tranche.</p>
+  <div class="card">
+    <label for="nameinput" style="font-weight:700">Ton prénom</label>
+    <div class="namerow">
+      <input id="nameinput" autocomplete="given-name" placeholder="ex. Margaux" maxlength="20">
+      <button id="namego">C'est parti</button>
+    </div>
+    <p class="gate-hint">Ton prénom sert juste à compter les votes, rien d'autre. Tout le monde voit les résultats en direct.</p>
+  </div>
+</div>
+
+<!-- main app -->
+<div id="app" class="wrap hidden">
+  <header>
+    <p class="eyebrow">Le conseil des 9 · Septembre 2026</p>
+    <h1>On part où&nbsp;?</h1>
+    <p class="sub">Note les trois options, coche ce qui te tente, donne tes dates. Ça s'enregistre tout seul.</p>
+    <p class="mename">Connectée en tant que <b id="mename"></b><button id="rename">changer</button></p>
+  </header>
+
+  <section id="results" class="card" aria-live="polite">
+    <h2>Où on en est</h2>
+    <div class="tally" id="tally"></div>
+    <p class="voters" id="voters"></p>
+    <div class="crown" id="crown"></div>
+  </section>
+
+  <div id="dests"></div>
+
+  <section id="dates">
+    <div class="card">
+      <h2 style="font-size:15px;letter-spacing:.1em;text-transform:uppercase">Tes dates</h2>
+      <p>Coche tous les week-ends où tu es dispo (ceux du sondage WhatsApp).</p>
+      <div class="dgrid" id="dgrid"></div>
+    </div>
+  </section>
+
+  <footer>Fait maison pour nous 9 · les votes se mettent à jour tout seuls</footer>
+</div>
+
+<div class="savebar" id="savebar">Enregistré</div>
+
+<script>
+"use strict";
+/* ------------ config ------------ */
+const BIN = "https://extendsclass.com/api/json-storage/bin/fafadff";
+const GROUP = 9;
+const POLL_MS = 15000;
+
+const DESTS = [
+  {
+    id:"paros", name:"Paros", k:"Option 1 · Cyclades, Grèce",
+    hue:"var(--paros)", soft:"var(--paros-soft)",
+    pitch:"La suite logique de l'itinéraire ferry qu'on avait repéré cet été. Villa à Naoussa, mer encore chaude, les ruelles blanches le soir.",
+    facts:[
+      ["Trajet","Vol Paris–Athènes (3h30) puis ferry 3h ou petit vol de 45 min"],
+      ["Budget","≈ 550 à 650 € par personne tout compris"],
+      ["Météo","26° l'après-midi, mer à 24°, la foule est repartie"]
+    ],
+    acts:[
+      ["boat","Journée bateau vers Antiparos et Despotiko"],
+      ["villa","Villa avec piscine à Naoussa"],
+      ["port","Dîner sur le vieux port de Naoussa"],
+      ["kolymbithres","Journée plage à Kolymbithres"],
+      ["bars","Bars du port de Naoussa le soir"],
+      ["quad","Tour de l'île en scooter ou quad"],
+      ["sunset","Coucher de soleil sur Parikia"],
+      ["paddle","Paddle au lever du soleil"]
+    ]
+  },
+  {
+    id:"minorque", name:"Minorque", k:"Option 2 · Baléares, Espagne",
+    hue:"var(--minorque)", soft:"var(--minorque-soft)",
+    pitch:"L'énergie des Baléares version villa entre nous : calas turquoise, bateau à la journée, et une boîte dans une falaise pour le sunset.",
+    facts:[
+      ["Trajet","Vol direct Orly–Mahón, 1h55"],
+      ["Budget","≈ 450 à 550 € par personne tout compris"],
+      ["Météo","26° et l'eau la plus claire de l'année"]
+    ],
+    acts:[
+      ["llaut","Louer un llaut : Macarella et Turqueta par la mer"],
+      ["villa","Villa avec piscine côté Ciutadella"],
+      ["cova","Sunset à la Cova d'en Xoroi, le bar dans la falaise"],
+      ["cami","Marche sur le Camí de Cavalls jusqu'à Cala Mitjana"],
+      ["port","Dîner au port de Ciutadella"],
+      ["mahon","Marché de Mahón et gin Xoriguer"],
+      ["fornells","Fruits de mer à Fornells"],
+      ["snorkel","Snorkeling dans les criques"]
+    ]
+  },
+  {
+    id:"basque", name:"Côte basque", k:"Option 3 · Biarritz ↔ San Sebastián",
+    hue:"var(--basque)", soft:"var(--basque-soft)",
+    pitch:"Zéro avion : le TGV qu'on connaît par cœur, une grande maison face à l'océan, surf le matin et pintxos le soir côté espagnol.",
+    facts:[
+      ["Trajet","TGV direct Montparnasse–Biarritz, 4h10"],
+      ["Budget","≈ 300 à 400 € par personne tout compris"],
+      ["Météo","22 à 24°, océan à 21°, la meilleure saison pour surfer"]
+    ],
+    acts:[
+      ["surf","Cours de surf à la Côte des Basques"],
+      ["maison","Grande maison face à l'océan à Guéthary ou Bidart"],
+      ["pintxos","Tournée de pintxos dans la vieille ville de San Sebastián"],
+      ["concha","Baignade à La Concha"],
+      ["apero","Apéro sunset au port de Guéthary"],
+      ["rhune","La Rhune en petit train au lever du jour"],
+      ["soiree","Soirée à Biarritz"],
+      ["stjean","Marché et gâteau basque à Saint-Jean-de-Luz"]
+    ]
+  }
+];
+const HEAT = ["Non","Pourquoi pas","Chaude","Très chaude"];
+const DATES = [
+  ["d1","Ven 4 – dim 6 sept"],
+  ["d2","Ven 11 – dim 13 sept"],
+  ["d3","Ven 18 – dim 20 sept"],
+  ["d4","Ven 25 – dim 27 sept"]
+];
+
+/* ------------ state ------------ */
+let doc = {meta:{}, customActs:[], members:{}};
+let me = localStorage.getItem("w9_name") || "";
+let ballot = JSON.parse(localStorage.getItem("w9_ballot") || "null") || {name:me, dest:{}, dates:[], acts:[], updated:0};
+let saveTimer = null, pollTimer = null, saving = false;
+
+const slug = s => s.trim().toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
+const $ = id => document.getElementById(id);
+
+/* ------------ network ------------ */
+async function fetchDoc(){
+  const r = await fetch(BIN, {cache:"no-store"});
+  if(!r.ok) throw new Error("GET "+r.status);
+  return r.json();
+}
+async function putDoc(d){
+  const r = await fetch(BIN, {method:"PUT", headers:{"Content-Type":"application/json"}, body:JSON.stringify(d)});
+  if(!r.ok) throw new Error("PUT "+r.status);
+}
+function mergeMine(server){
+  server.members = server.members || {};
+  server.customActs = server.customActs || [];
+  const key = slug(me);
+  const srv = server.members[key];
+  if(!srv || (ballot.updated || 0) >= (srv.updated || 0)){
+    server.members[key] = ballot;
+  } else {
+    ballot = srv; persistLocal();
+  }
+  return server;
+}
+async function saveMine(){
+  if(saving) return; saving = true;
+  try{
+    for(let i=0; i<4; i++){
+      try{
+        const server = mergeMine(await fetchDoc());
+        await putDoc(server);
+        doc = server;
+        toast("Enregistré");
+        break;
+      }catch(e){
+        if(i===3) throw e;
+        await new Promise(res => setTimeout(res, 400 + Math.random()*600));
+      }
+    }
+  }catch(e){
+    toast("Hors ligne — réessaie dans un instant", true);
+  }finally{
+    saving = false;
+    renderResults(); renderDests(); renderDates();
+  }
+}
+function queueSave(){
+  ballot.updated = Date.now();
+  ballot.name = me;
+  persistLocal();
+  renderResults(); renderDests(); renderDates();
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(saveMine, 700);
+}
+function persistLocal(){
+  localStorage.setItem("w9_ballot", JSON.stringify(ballot));
+}
+async function poll(){
+  if(document.hidden) return;
+  try{
+    const server = await fetchDoc();
+    const key = slug(me);
+    const srv = server.members && server.members[key];
+    // self-heal: if my ballot vanished or is older on the server, re-push
+    if(ballot.updated && (!srv || (srv.updated||0) < ballot.updated)){
+      doc = server; saveMine(); return;
+    }
+    doc = server;
+    if(srv && (srv.updated||0) > (ballot.updated||0)){ ballot = srv; persistLocal(); }
+    renderResults(); renderDests(); renderDates();
+  }catch(e){ /* silent; next poll retries */ }
+}
+
+/* ------------ rendering ------------ */
+function toast(msg, isErr){
+  const el = $("savebar");
+  el.textContent = msg;
+  el.classList.toggle("err", !!isErr);
+  el.classList.add("show");
+  clearTimeout(el._t);
+  el._t = setTimeout(()=>el.classList.remove("show"), isErr ? 3500 : 1400);
+}
+function membersArr(){
+  return Object.values(doc.members || {}).filter(m => m && m.name);
+}
+function hasVoted(m){ return m.dest && Object.keys(m.dest).length > 0; }
+function initials(n){
+  const p = n.trim().split(/\s+/);
+  return (p[0][0] + (p[1] ? p[1][0] : (p[0][1]||""))).toUpperCase();
+}
+function renderResults(){
+  const ms = membersArr();
+  const voted = ms.filter(hasVoted);
+  const scores = {};
+  DESTS.forEach(d => scores[d.id] = 0);
+  voted.forEach(m => DESTS.forEach(d => scores[d.id] += (m.dest[d.id] ?? 0)));
+  const max = Math.max(3, ...Object.values(scores));
+  $("tally").innerHTML = DESTS.map(d => `
+    <div class="trow">
+      <span class="lbl">${d.name}</span>
+      <span class="bar"><i style="width:${Math.round(scores[d.id]/ (max*1.0) * 100)}%; background:${d.hue}"></i></span>
+      <span class="num">${scores[d.id]}</span>
+    </div>`).join("");
+  const names = voted.map(m => m.name.split(" ")[0]);
+  $("voters").textContent = voted.length
+    ? `${voted.length}/${GROUP} ont voté : ${names.join(", ")}`
+    : "Personne n'a encore voté. Sois la première.";
+  const crown = $("crown");
+  if(voted.length >= GROUP){
+    const winner = DESTS.reduce((a,b) => scores[a.id] >= scores[b.id] ? a : b);
+    const tie = DESTS.filter(d => scores[d.id] === scores[winner.id]).length > 1;
+    crown.textContent = tie
+      ? "Tout le monde a voté... et c'est une égalité. On règle ça au prochain apéro."
+      : `Verdict : ${winner.name} l'emporte. On réserve.`;
+    crown.classList.add("show");
+  } else crown.classList.remove("show");
+}
+function actVoters(actKey){
+  return membersArr().filter(m => (m.acts||[]).includes(actKey));
+}
+function renderDests(){
+  const html = DESTS.map(d => {
+    const myHeat = ballot.dest[d.id];
+    const customs = (doc.customActs||[]).filter(a => a.dest === d.id);
+    const actRow = (key, label, by) => {
+      const on = (ballot.acts||[]).includes(key);
+      const who = actVoters(key);
+      return `<div class="act">
+        <button class="tick ${on?"on":""}" data-act="${key}" aria-pressed="${on}" aria-label="${label}"></button>
+        <span class="lab">${label}${by ? ` <span class="byline">· idée de ${by}</span>`:""}</span>
+        <span class="who">${who.map(m=>`<span class="chip">${initials(m.name)}</span>`).join("")}</span>
+      </div>`;
+    };
+    return `<article class="dest" style="--hue:${d.hue}; --soft:${d.soft}">
+      <div class="band" style="background:${d.hue}"></div>
+      <div class="inner">
+        <p class="k">${d.k}</p>
+        <h2>${d.name}</h2>
+        <p class="pitch">${d.pitch}</p>
+        <div class="facts">${d.facts.map(f=>`<div class="fact"><b>${f[0]}</b><span>${f[1]}</span></div>`).join("")}</div>
+        <p class="heatq">Tu es chaude à quel point ?</p>
+        <div class="heat" role="group" aria-label="Ton enthousiasme pour ${d.name}">
+          ${HEAT.map((h,i)=>`<button data-dest="${d.id}" data-heat="${i}" class="${myHeat===i?"on":""}" aria-pressed="${myHeat===i}">${h}</button>`).join("")}
+        </div>
+        <div class="acts">
+          <h3>Au programme — coche ce qui te tente</h3>
+          ${d.acts.map(a => actRow(d.id+":"+a[0], a[1])).join("")}
+          ${customs.map(a => actRow("custom:"+a.id, a.label, a.by)).join("")}
+          <div class="addrow">
+            <input placeholder="Ajoute une idée pour ${d.name}…" maxlength="80" data-add="${d.id}">
+            <button data-addbtn="${d.id}">Ajouter</button>
+          </div>
+        </div>
+      </div>
+    </article>`;
+  }).join("");
+  $("dests").innerHTML = html;
+}
+function renderDates(){
+  const counts = {};
+  DATES.forEach(d => counts[d[0]] = membersArr().filter(m => (m.dates||[]).includes(d[0])).length);
+  $("dgrid").innerHTML = DATES.map(d => {
+    const on = (ballot.dates||[]).includes(d[0]);
+    const n = counts[d[0]];
+    return `<button data-date="${d[0]}" class="${on?"on":""}" aria-pressed="${on}">
+      <span class="dl">${d[1]}</span>
+      <span class="dc">${n} dispo${n>1?"s":""}</span>
+    </button>`;
+  }).join("");
+}
+
+/* ------------ events (delegated) ------------ */
+document.addEventListener("click", e => {
+  const t = e.target.closest("button");
+  if(!t) return;
+  if(t.dataset.heat !== undefined && t.dataset.dest){
+    const v = parseInt(t.dataset.heat, 10);
+    if(ballot.dest[t.dataset.dest] === v) delete ballot.dest[t.dataset.dest];
+    else ballot.dest[t.dataset.dest] = v;
+    queueSave();
+  }
+  if(t.dataset.act){
+    const k = t.dataset.act;
+    ballot.acts = ballot.acts || [];
+    const i = ballot.acts.indexOf(k);
+    if(i >= 0) ballot.acts.splice(i,1); else ballot.acts.push(k);
+    queueSave();
+  }
+  if(t.dataset.date){
+    ballot.dates = ballot.dates || [];
+    const i = ballot.dates.indexOf(t.dataset.date);
+    if(i >= 0) ballot.dates.splice(i,1); else ballot.dates.push(t.dataset.date);
+    queueSave();
+  }
+  if(t.dataset.addbtn){
+    const input = document.querySelector(`input[data-add="${t.dataset.addbtn}"]`);
+    addActivity(t.dataset.addbtn, input);
+  }
+});
+document.addEventListener("keydown", e => {
+  if(e.key === "Enter" && e.target.dataset && e.target.dataset.add){
+    addActivity(e.target.dataset.add, e.target);
+  }
+  if(e.key === "Enter" && e.target.id === "nameinput") $("namego").click();
+});
+function addActivity(destId, input){
+  const label = (input.value || "").trim();
+  if(!label) return;
+  const id = slug(me) + "-" + Math.random().toString(36).slice(2,7);
+  doc.customActs = doc.customActs || [];
+  doc.customActs.push({id, dest:destId, label, by:me.split(" ")[0]});
+  ballot.acts = ballot.acts || [];
+  ballot.acts.push("custom:"+id);
+  input.value = "";
+  ballot.updated = Date.now(); persistLocal();
+  // push the shared doc (customActs live outside my ballot)
+  (async () => {
+    try{
+      for(let i=0; i<4; i++){
+        try{
+          const server = await fetchDoc();
+          server.customActs = server.customActs || [];
+          if(!server.customActs.some(a => a.id === id)) server.customActs.push({id, dest:destId, label, by:me.split(" ")[0]});
+          mergeMine(server);
+          await putDoc(server);
+          doc = server; break;
+        }catch(err){ if(i===3) throw err; await new Promise(r=>setTimeout(r, 400+Math.random()*600)); }
+      }
+      toast("Idée ajoutée");
+    }catch(err){ toast("Hors ligne — réessaie dans un instant", true); }
+    renderDests(); renderResults();
+  })();
+  renderDests();
+}
+
+/* ------------ boot ------------ */
+$("namego").addEventListener("click", () => {
+  const v = $("nameinput").value.trim();
+  if(!v){ $("nameinput").focus(); return; }
+  me = v;
+  localStorage.setItem("w9_name", me);
+  ballot.name = me;
+  persistLocal();
+  enter();
+});
+$("rename").addEventListener("click", () => {
+  localStorage.removeItem("w9_name");
+  location.reload();
+});
+function enter(){
+  $("gate").classList.add("hidden");
+  $("app").classList.remove("hidden");
+  $("mename").textContent = me;
+  renderDests(); renderDates(); renderResults();
+  poll();
+  clearInterval(pollTimer);
+  pollTimer = setInterval(poll, POLL_MS);
+}
+document.addEventListener("visibilitychange", () => { if(!document.hidden) poll(); });
+
+if(me){ enter(); } else { $("gate").classList.remove("hidden"); }
+</script>
+</body>
+</html>
